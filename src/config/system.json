@@ -1,0 +1,35 @@
+{
+  "name": "DB.SERVER",
+  "version": "1.0.1",
+  "enterprise": "DB System",
+  "ceo": "David Ben",
+  "startBeta": "08/04/2026",
+  "startMachine": "28/04/2026",
+  "description": "Controle de Arquivos DB SERVER",
+  "updates": [
+    {
+      "version": "0.1.1",
+      "description": "Base teste da SYSTEM. Versão teste.",
+      "beta": true,
+      "local": "host"
+    },
+    {
+      "version": "0.1.3",
+      "description": "Sistema apresentou falhas de designer e responsividade; algumas funcionalidades falharam.",
+      "beta": true,
+      "local": "host"
+    },
+    {
+      "version": "0.1.5",
+      "description": "Primeira versão com sistema de arquivos básico; Versão funcional; Correção de bugs.",
+      "beta": false,
+      "local": "host"
+    },
+    {
+      "version": "1.0.1",
+      "description": "Primeira versão funcional na máquina. 100% funcional. Sujeito a melhorias.",
+      "beta": false,
+      "local": "machine"
+    }
+  ]
+}

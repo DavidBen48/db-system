@@ -1,0 +1,9 @@
+{
+  "commands": {
+    "c": "criar",
+    "d": "deletar",
+    "lr": "ler",
+    "hist": "historico",
+    "manual": "menu de ajuda"
+  }
+}
