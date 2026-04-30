@@ -1,10 +1,10 @@
 {
   "name": "db.system",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "app.js",
   "bin": {
-    "db-system": "./app.js"
+    "db-system": "./bin/cli.js"
   },
   "scripts": {
     "start": "node src/ui/terminal.js",

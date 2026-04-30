@@ -59,7 +59,7 @@ function getMachineInfo() {
 												serial = execSync('wmic bios get serialnumber')
 																.toString().split('\n')[1].trim();
 								} catch {}
-
+								
 								return `
 -------------------------------------
 | MINHA MÁQUINA

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const blessed = require('neo-blessed');
 const parseCommand = require('../core/parser');
 
