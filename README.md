@@ -1,3 +1,5 @@
-<h5>
-oi amor, Laryssa, te amo
-</h5>
+rodar CLI:
+npm start
+
+rodar API:
+npm run api

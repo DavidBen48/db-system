@@ -7,7 +7,8 @@
     "db-system": "./app.js"
   },
   "scripts": {
-    "start": "node src/ui/terminal.js"
+    "start": "node src/ui/terminal.js",
+    "api": "node src/server/app.js"
   },
   "keywords": [],
   "author": "",
