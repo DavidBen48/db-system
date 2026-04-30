@@ -1,41 +1,81 @@
-const commands = ['c', 'd', 'lr', 'vai-para', 'voltar', 'config', 'manual', 'encerrar'];
+const commands = [
+				'c',
+				'd',
+				'lr',
+				'vai-para',
+				'voltar',
+				'config',
+				'manual',
+				'encerrar',
+				'exit',
+				'start',
+				'limpar',
+				'cls'
+];
 
+// normalização básica (evita erro por maiúscula ou espaço)
+function normalize(str) {
+				return str
+								.toLowerCase()
+								.trim();
+}
+
+// levenshtein otimizado (menos memória)
 function levenshtein(a, b) {
-				const matrix = [];
+				const lenA = a.length;
+				const lenB = b.length;
 
-				for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-				for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+				if (lenA === 0) return lenB;
+				if (lenB === 0) return lenA;
 
-				for (let i = 1; i <= b.length; i++) {
-								for (let j = 1; j <= a.length; j++) {
-												if (b.charAt(i - 1) === a.charAt(j - 1)) {
-																matrix[i][j] = matrix[i - 1][j - 1];
-												} else {
-																matrix[i][j] = Math.min(
-																				matrix[i - 1][j - 1] + 1,
-																				matrix[i][j - 1] + 1,
-																				matrix[i - 1][j] + 1
-																);
-												}
+				let prev = new Array(lenB + 1);
+				let curr = new Array(lenB + 1);
+
+				for (let j = 0; j <= lenB; j++) prev[j] = j;
+
+				for (let i = 1; i <= lenA; i++) {
+								curr[0] = i;
+
+								for (let j = 1; j <= lenB; j++) {
+												const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+
+												curr[j] = Math.min(
+																prev[j] + 1,        // remoção
+																curr[j - 1] + 1,    // inserção
+																prev[j - 1] + cost  // substituição
+												);
 								}
+
+								[prev, curr] = [curr, prev];
 				}
 
-				return matrix[b.length][a.length];
+				return prev[lenB];
+}
+
+// similaridade relativa (melhora precisão)
+function similarity(a, b) {
+				const dist = levenshtein(a, b);
+				const maxLen = Math.max(a.length, b.length);
+				return 1 - dist / maxLen;
 }
 
 function suggest(input) {
-				let best = null;
-				let bestScore = Infinity;
+				const normalizedInput = normalize(input);
 
-				for (let cmd of commands) {
-								const dist = levenshtein(input, cmd);
-								if (dist < bestScore) {
-												bestScore = dist;
+				let best = null;
+				let bestScore = 0;
+
+				for (const cmd of commands) {
+								const score = similarity(normalizedInput, cmd);
+
+								if (score > bestScore) {
+												bestScore = score;
 												best = cmd;
 								}
 				}
 
-				if (bestScore <= 2 && best !== input) {
+				// threshold mais inteligente
+				if (bestScore >= 0.5 && best !== normalizedInput) {
 								return `você errou ao digitar "${input}". Você quis dizer "${best}"?`;
 				}
 

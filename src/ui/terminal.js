@@ -1,7 +1,7 @@
 const blessed = require('neo-blessed');
 const parseCommand = require('../core/parser');
 
-const fsys = require('../core/filesystem');
+const fsys = require('../filesystem');
 const fs = require('fs-extra');
 
 const path = require('path');
@@ -15,7 +15,7 @@ function getPrompt() {
 // tela
 const screen = blessed.screen({
 				smartCSR: true,
-				title: 'DB.Admin'
+				title: 'DB.System'
 });
 
 // terminal
@@ -61,10 +61,10 @@ function render() {
 }
 
 // inicial
-content.push('DB.SERVER 1.0.1');
+content.push('DB.SYSTEM 1');
 content.push('');
-content.push('[Servidor Teste] -> digite "localstorage"');
-content.push('[Sua Máquina] -> digite "admin"');
+content.push('[Servidor Teste]  -> digite "localstorage"');
+content.push('[Sua Máquina]     -> digite "admin"');
 content.push('');
 addPrompt();
 render();
@@ -99,7 +99,7 @@ screen.on('keypress', (ch, key) => {
 
 								if (typeof result === 'object') {
 												if (result.action === 'clear') {
-																content = ['DB.SERVER 1.0.1'];
+																content = ['DB.SYSTEM 1'];
 																addPrompt();
 																render();
 																return;

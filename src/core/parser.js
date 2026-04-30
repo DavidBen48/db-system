@@ -1,4 +1,4 @@
-const fsys = require('./filesystem');
+const fsys = require('../filesystem');
 const suggest = require('./smartError');
 
 function parseCommand(input) {
@@ -76,8 +76,8 @@ function parseCommand(input) {
 												return fsys.getSystemConfig();
 								}
 
-								if (cmd === 'limpar') return { action: 'clear' };
-								if (cmd === 'encerrar') return { action: 'exit' };
+								if (cmd === 'limpar' || cmd === 'cls') return { action: 'clear' };
+								if (cmd === 'encerrar' || cmd === 'exit') return { action: 'exit' };
 
 								// start
 								if (cmd.startsWith('start')) {
@@ -93,33 +93,40 @@ function parseCommand(input) {
 
 								if (cmd === 'manual') {
 												return `
+--> CRIAR
 c p=nome => Criar pasta
 c a=nome tipo=txt => Criar arquivo
 
-lr => Listar atual
-lr nome => Listar pasta
+--> LER
+lr => Listar diretório atual
+lr --tipo=a => Apenas arquivos do diretório atual
+lr --tipo=p => Apenas pastas do diretório atual
+lr nome => Listar pasta dentro do diretório atual
+lr nome --tipo=a => Apenas arquivos de uma pasta dentro do diretório atual
+lr nome --tipo=p => Apenas pastas de uma pasta dentro do diretório atual
 
-lr nome --tipo=a => Apenas arquivos
-lr nome --tipo=p => Apenas pastas
-
-lr --tipo=a => Arquivos
-lr --tipo=p => Pastas
-
+--> CAMINHOS
 vai-para -> pasta => Entrar
 voltar => Voltar
 
+--> INICIALIZAR
 start=local => Abrir pasta do diretório atual
 start --p=pasta => Abrir uma pasta específica do diretório atual  
 
+--> DELETAR
 d a=nome tipo=txt => Deletar arquivo
 d p=nome => Deletar pasta
+d p=nome --force => Deleta pastas arquivos sensíveis ou com não-vazias
 
---force => obrigatório no modo admin
+--> CONFIGURAÇÕES
+config => Ver informações do sistema
+config --machine => Ver informações da sua máquina
 
-config => Ver sistema
-config --machine => Ver informações da máquina
+--> OUTROS
+limpar || cls => Limpa o terminal
 
-encerrar => Sair
+--> FIM
+encerrar || exit => Sair do sistema
 `;
 								}
 

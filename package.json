@@ -1,8 +1,11 @@
 {
-  "name": "db.web",
+  "name": "db.system",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "bin": {
+    "db-system": "./app.js"
+  },
   "scripts": {
     "start": "node src/ui/terminal.js"
   },
