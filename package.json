@@ -1,6 +1,6 @@
 {
-  "name": "db.system",
-  "version": "1.0.4",
+  "name": "@davidben0000/dbsystem",
+  "version": "1.1.0",
   "description": "",
   "main": "app.js",
   "bin": {
@@ -20,5 +20,8 @@
     "fs-extra": "^11.3.4",
     "neo-blessed": "^0.2.0",
     "uuid": "^14.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
