@@ -2,65 +2,82 @@ const os = require('os');
 const { execSync } = require('child_process');
 
 function getMachineInfo() {
-				try {
-								const hostname = os.hostname();
-								const platform = os.platform();
-								const arch = os.arch();
-								const release = os.release();
+	try {
+		const hostname = os.hostname();
+		const platform = os.platform();
+		const arch = os.arch();
+		const release = os.release();
 
-								const cpus = os.cpus();
-								const cpuModel = cpus[0]?.model || 'N/A';
-								const cpuCores = cpus.length;
+		const cpus = os.cpus();
+		const cpuModel = cpus[0]?.model || 'N/A';
+		const cpuCores = cpus.length;
 
-								const totalRam = os.totalmem();
-								const freeRam = os.freemem();
-								const usedRam = totalRam - freeRam;
-								const ramUsage = (usedRam / totalRam) * 100;
+		const totalRam = os.totalmem();
+		const freeRam = os.freemem();
+		const usedRam = totalRam - freeRam;
+		const ramUsage = (usedRam / totalRam) * 100;
 
-								let diskTotal = 'N/A';
-								let diskFree = 'N/A';
-								let diskUsage = null;
+		let diskTotal = 'N/A';
+		let diskFree = 'N/A';
+		let diskUsage = null;
 
-								try {
-												const disk = execSync('wmic logicaldisk get size,freespace,caption')
-																.toString().split('\n')[1];
+		try {
+					const disk = execSync('wmic logicaldisk get size,freespace,caption')
+									.toString().split('\n')[1];
 
-												const parts = disk.trim().split(/\s+/);
+					const parts = disk.trim().split(/\s+/);
 
-												const free = parseInt(parts[1]);
-												const total = parseInt(parts[2]);
+					const free = parseInt(parts[1]);
+					const total = parseInt(parts[2]);
 
-												diskTotal = (total / 1024 / 1024 / 1024).toFixed(2) + ' GB';
-												diskFree = (free / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+					diskTotal = (total / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+					diskFree = (free / 1024 / 1024 / 1024).toFixed(2) + ' GB';
 
-												diskUsage = ((total - free) / total) * 100;
-								} catch {}
+					diskUsage = ((total - free) / total) * 100;
+	} catch {};
 
-								function getStatus(value) {
-												if (value === null || value === undefined) return 'UNDEFINED';
-												if (value < 50) return 'EXCELENTE';
-												if (value < 80) return 'MÉDIO';
-												return 'RUIM';
-								}
+	function getStatus(value) {
+					if (value === null || value === undefined) return 'UNDEFINED';
+					if (value < 50) return 'EXCELENTE';
+					if (value < 80) return 'MÉDIO';
+					return 'RUIM';
+	}
 
-								const cpuLoad = os.loadavg()[0] * 100;
+	// CPU Usage real no Windows
+	let cpuLoad = 0;
 
-								let manufacturer = 'N/A';
-								let model = 'N/A';
-								let serial = 'N/A';
+	try {
+		const cpuOutput = execSync('wmic cpu get loadpercentage')
+			.toString()
+			.split('\n')
+			.map(line => line.trim())
+			.filter(line => line && !line.includes('LoadPercentage'));
 
-								try {
-												manufacturer = execSync('wmic computersystem get manufacturer')
-																.toString().split('\n')[1].trim();
+		if (cpuOutput.length > 0) {
+			cpuLoad = parseFloat(cpuOutput[0]);
+		}
+	} catch {
+		cpuLoad = 0;
+	}
 
-												model = execSync('wmic computersystem get model')
-																.toString().split('\n')[1].trim();
+	const cpuStatus = getStatus(cpuLoad);
 
-												serial = execSync('wmic bios get serialnumber')
-																.toString().split('\n')[1].trim();
-								} catch {}
-								
-								return `
+	let manufacturer = 'N/A';
+	let model = 'N/A';
+	let serial = 'N/A';
+
+	try {
+		manufacturer = execSync('wmic computersystem get manufacturer')
+						.toString().split('\n')[1].trim();
+
+		model = execSync('wmic computersystem get model')
+						.toString().split('\n')[1].trim();
+
+		serial = execSync('wmic bios get serialnumber')
+						.toString().split('\n')[1].trim();
+	} catch {}
+	
+	return `
 -------------------------------------
 | MINHA MÁQUINA
 | Nome.............: ${hostname}
@@ -88,11 +105,11 @@ function getMachineInfo() {
 -------------------------------------
 `;
 
-				} catch {
-								return 'Erro ao obter informações da máquina.';
-				}
+	} catch {
+		return 'Erro ao obter informações da máquina.';
+	}
 }
 
 module.exports = {
-				getMachineInfo
+	getMachineInfo
 };

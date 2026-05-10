@@ -128,13 +128,13 @@ limpar || cls => Limpa o terminal
 --> FIM
 encerrar || exit => Sair do sistema
 `;
-								}
+	}
 
-								return suggest(cmd);
+	return suggest(cmd);
 
-				} catch {
-								return 'Erro interno no sistema.';
-				}
+	} catch {
+		return 'Erro interno no sistema.';
+	}
 }
 
 module.exports = parseCommand;
