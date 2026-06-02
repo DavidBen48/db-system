@@ -1,10 +1,10 @@
 {
-  "name": "@davidben0000/dbsystem",
+  "name": "@dblssystem/cli",
   "version": "1.1.1",
   "description": "",
   "main": "app.js",
   "bin": {
-    "db-system": "./bin/cli.js"
+    "dblssystem": "./bin/cli.js"
   },
   "scripts": {
     "start": "node src/ui/terminal.js",

@@ -22,28 +22,27 @@ function getMachineInfo() {
 		let diskUsage = null;
 
 		try {
-					const disk = execSync('wmic logicaldisk get size,freespace,caption')
-									.toString().split('\n')[1];
+			const disk = execSync('wmic logicaldisk get size,freespace,caption')
+							.toString().split('\n')[1];
 
-					const parts = disk.trim().split(/\s+/);
+			const parts = disk.trim().split(/\s+/);
 
-					const free = parseInt(parts[1]);
-					const total = parseInt(parts[2]);
+			const free = parseInt(parts[1]);
+			const total = parseInt(parts[2]);
 
-					diskTotal = (total / 1024 / 1024 / 1024).toFixed(2) + ' GB';
-					diskFree = (free / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+			diskTotal = (total / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+			diskFree = (free / 1024 / 1024 / 1024).toFixed(2) + ' GB';
 
-					diskUsage = ((total - free) / total) * 100;
+			diskUsage = ((total - free) / total) * 100;
 	} catch {};
 
 	function getStatus(value) {
-					if (value === null || value === undefined) return 'UNDEFINED';
-					if (value < 50) return 'EXCELENTE';
-					if (value < 80) return 'MÉDIO';
-					return 'RUIM';
+		if (value === null || value === undefined) return 'UNDEFINED';
+		if (value < 50) return 'EXCELENTE';
+		if (value < 80) return 'MÉDIO';
+		return 'RUIM';
 	}
 
-	// CPU Usage real no Windows
 	let cpuLoad = 0;
 
 	try {
@@ -68,15 +67,15 @@ function getMachineInfo() {
 
 	try {
 		manufacturer = execSync('wmic computersystem get manufacturer')
-						.toString().split('\n')[1].trim();
+			.toString().split('\n')[1].trim();
 
 		model = execSync('wmic computersystem get model')
-						.toString().split('\n')[1].trim();
+			.toString().split('\n')[1].trim();
 
 		serial = execSync('wmic bios get serialnumber')
-						.toString().split('\n')[1].trim();
+			.toString().split('\n')[1].trim();
 	} catch {}
-	
+
 	return `
 -------------------------------------
 | MINHA MÁQUINA

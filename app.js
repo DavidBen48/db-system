@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-				res.send('DB.WEB 0.1 rodando');
+				res.send('DBLS SYSTEM 1.1.1 rodando');
 });
 
 app.listen(3000, () => {
