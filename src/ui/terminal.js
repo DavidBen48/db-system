@@ -17,7 +17,7 @@ function getPrompt() {
 // tela
 const screen = blessed.screen({
 				smartCSR: true,
-				title: 'DB.System'
+				title: 'DBLS.SYSTEM - CLI'
 });
 
 // terminal
@@ -63,7 +63,7 @@ function render() {
 }
 
 // inicial
-content.push('DB.SYSTEM 1');
+content.push('DBLS.SYSTEM 1');
 content.push('');
 content.push('[Servidor Teste]  -> digite "localstorage"');
 content.push('[Sua Máquina]     -> digite "admin"');
@@ -101,7 +101,7 @@ screen.on('keypress', (ch, key) => {
 
 								if (typeof result === 'object') {
 												if (result.action === 'clear') {
-																content = ['DB.SYSTEM 1'];
+																content = ['DBLS.SYSTEM 1'];
 																addPrompt();
 																render();
 																return;

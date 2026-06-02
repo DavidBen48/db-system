@@ -13,7 +13,7 @@ function getSystemConfig() {
 
 								return `
 -------------------------------------
-| SISTEMA -> DB-SYSTEM
+| SISTEMA -> DBLS.SYSTEM
 | Nome.............: ${data.name}
 | Descrição........: ${data.description || 'N/A'}
 |
@@ -25,6 +25,7 @@ function getSystemConfig() {
 | LANÇAMENTOS
 | Beta.............: ${data.startBeta}
 | Machine..........: ${data.startMachine}
+| Análise..........: ${data.startAnalysis}
 -------------------------------------
 `;
 				} catch {

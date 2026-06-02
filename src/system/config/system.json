@@ -1,40 +1,53 @@
 {
-  "name": "DB.SYSTEM",
-  "version": "1.0.1",
+  "name": "DBLS.SYSTEM - CLI",
+  "version": "1.2.1",
   "enterprise": "DB Corporation",
   "ceo": "David Ben",
   "startBeta": "08/04/2026",
   "startMachine": "28/04/2026",
+  "startAnalysis": "02/06/2026",
   "description": "CLI interativa de um sistema com gerenciamento de arquivos.",
   "updates": [
     {
       "version": "0.1.1",
       "description": "Base teste da SYSTEM. Versão teste.",
       "beta": true,
+      "functional": true,
       "local": "host"
     },
     {
       "version": "0.1.3",
       "description": "Sistema apresentou falhas de designer e responsividade; algumas funcionalidades falharam.",
       "beta": true,
+      "functional": false,
       "local": "host"
     },
     {
       "version": "0.1.9",
       "description": "Primeira versão com sistema de arquivos básico; Versão funcional; Correção de bugs.",
       "beta": false,
+      "functional": true,
       "local": "host"
     },
     {
       "version": "1.0.1",
       "description": "Primeira versão funcional na máquina. 100% funcional. Sujeito a melhorias.",
       "beta": false,
+      "functional": true,
       "local": "machine"
     },
     {
       "version": "1.5.0.66",
       "description": "Rework do projeto: mais rápido, mais completo. Arquitetura de Software inicial implementado com sucesso.",
       "beta": true,
+      "functional": true,
+      "local": "host && machine"
+    },
+    {
+      "version": "1.2.1",
+      "description": "Correção de bugs e melhorias de desempenho. Versão estável e funcional.",
+      "beta": false,
+      "functional": true,
       "local": "host && machine"
     }
   ]
